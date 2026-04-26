@@ -266,4 +266,4 @@ pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python,django
 
-k8s/secret.yaml
+# k8s/secret.yaml
