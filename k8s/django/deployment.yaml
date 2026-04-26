@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django
+  namespace: just-for-chill
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: django
+  template:
+    metadata:
+      labels:
+        app: django
+    spec:
+      containers:
+        - name: django
+          image: localhost:5000/django-app:latest
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: app-config
+            - secretRef:
+                name: app-secret
+          command:
+            [
+              "uvicorn",
+              "config.asgi:application",
+              "--host",
+              "0.0.0.0",
+              "--port",
+              "8000",
+              "--reload",
+              "--reload-dir",
+              "core",
+              "--reload-dir",
+              "config",
+            ]
+          # readinessProbe:
+          # httpGet:
+          #   path: /health/
+          #   port: 8000
+          # initialDelaySeconds: 10
+          # periodSeconds: 5
+          # livenessProbe:
+          # httpGet:
+          #   path: /health/
+          #   port: 8000
+          #   initialDelaySeconds: 15
+          #   periodSeconds: 10

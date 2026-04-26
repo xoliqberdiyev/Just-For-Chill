@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: just-for-chill-config
+  namespace: just-for-chill
+
+data:
+  # DJANGO_SETTINGS_MODULE: "core.settings.production"
+  # ALLOWED_HOSTS: "*"
+  POSTGRES_DB: "appdb"
+  POSTGRES_HOST: "postgres-service"
+  POSTGRES_PORT: "5432"
